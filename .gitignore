@@ -1,2 +1,5 @@
 validation.php
 addPresenter.php
+config.php
+connection.php
+dbConnect.php
