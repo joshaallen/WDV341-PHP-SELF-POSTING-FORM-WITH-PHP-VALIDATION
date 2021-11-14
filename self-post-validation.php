@@ -18,7 +18,9 @@ $errorEventTimeMsg= "";
 //Selection block to determine if form has been submitted
 if(isset($_POST["submit"]))
 	{	
-        //The form has been submitted and needs to be processed
+          //selection structure to determine if honey pot name value pair was submitted
+        if(!isset($_POST["eventInfo"]) || $_POST["eventInfo"] == false) {
+            //The form has been submitted and needs to be processed
         //Get the name value pairs from the $_POST variable into PHP variables
         $eventName = trim($_POST["eventName"]);
         $eventDescription = trim($_POST["eventDescription"]);
@@ -108,8 +110,18 @@ if(isset($_POST["submit"]))
             }
                
         }
+        }
+        //end of if truth block
+        // Entering block for honeypot field submission
+        else {
+        /**storing ip address of visitor. will need away to transport the data with ip adddress
+        **/
+                $ip = getenv("REMOTE_ADDR");
+                header("Location: form-handler-homework-honeyPot.php?ip=" . $ip);
+        }
+        
     }
-?>
+?><!--end of IF SUBMIT BLOCK -->
 
 <!doctype html>
 <html>
@@ -151,7 +163,7 @@ if(isset($_POST["submit"]))
                 This HTML block will only be visible with a valid form and a successful insert query
             -->
             <div>
-                <h2>For Submission Successful!</h2>
+                <h2>Submission Successful!</h2>
                 <p>Thank you for submitting your info.</p>
                 <p>The id of the last record you inserted is: <?php echo $lastInsertID; ?></p>
             </div>
