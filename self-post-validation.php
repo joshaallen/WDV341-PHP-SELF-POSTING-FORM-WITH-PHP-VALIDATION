@@ -5,11 +5,10 @@ $eventDescription= "";
 $eventPresenter= "";
 $eventDate="";
 $eventTime="";
-
 //Form Flag
 $validForm = false;
+//End of Response Object Flag
 $endOfResposeObject = false;
-
 //Error Messages
 $errorEventNameMsg= "";
 $errorEventDescriptionMsg= "";
@@ -127,6 +126,9 @@ if(isset($_POST["submit"]))
         #form-1 p:nth-child(1){
             display: none;
         }
+        #error {
+            color: #ff0000;
+        }
     </style>
 </head>
 <body>
@@ -141,10 +143,13 @@ if(isset($_POST["submit"]))
          * testing $count to ensure that the insert query was successful 
          */
             if($validForm) {
-                if(!$count===1) {
+                if($count>0) {
                     $endOfResposeObject = true;
 
             ?>
+            <!-- 
+                This HTML block will only be visible with a valid form and a successful insert query
+            -->
             <div>
                 <h2>For Submission Successful!</h2>
                 <p>Thank you for submitting your info.</p>
@@ -155,6 +160,9 @@ if(isset($_POST["submit"]))
                 else {
                     $endOfResposeObject = true;
         ?>
+        <!-- 
+                This HTML block will only be visible with a valid form and an unsuccessful insert query
+            -->
             <div>
                 <h2>Uh Oh!</h2>
                 <p>There was a problem.</p>
@@ -181,29 +189,29 @@ if(isset($_POST["submit"]))
                     <p>
                         <label for="eventName">Event Name: </label>
                         <input type="text" name="eventName" id="eventName" value=<?php echo htmlentities($eventName); ?>>
-                        <span><?php echo $errorEventNameMsg;?></span>
+                        <span id="error"><?php echo $errorEventNameMsg;?></span>
                     </p>
                     <p>
                         <label for="eventDescription">Event Description: </label>
                         <input type="text" name="eventDescription" id="eventDescription" value=<?php echo htmlentities($eventDescription); ?>> 
-                        <span><?php echo $errorEventDescriptionMsg;?></span>
+                        <span id="error"><?php echo $errorEventDescriptionMsg;?></span>
                         
                     </p>
                     <p>
                         <label for="eventPresenter">Event Presenter: </label>
                         <input type="text" name="eventPresenter" id="eventPresenter" value=<?php echo htmlentities($eventPresenter); ?>>
-                        <span><?php echo $errorEventPresenterMsg;?></span>
+                        <span id="error"><?php echo $errorEventPresenterMsg;?></span>
                     </p>
                     <p>
                         <label for="eventDate">Event Date</label>
                         <input type="date" name="eventDate" id="eventDate"><?php echo $eventDate; ?>
-                        <span><?php echo $errorEventDateMsg;?></span>
+                        <span id="error"><?php echo $errorEventDateMsg;?></span>
                         
                     </p>
                     <p>
                         <label for="eventTime">Event Time</label>
                         <input type="time" name="eventTime" id="eventTime"><?php echo $eventTime;?>
-                        <span><?php echo $errorEventTimeMsg;?></span>
+                        <span id="error"><?php echo $errorEventTimeMsg;?></span>
                         
                     </p>
                     <p>
